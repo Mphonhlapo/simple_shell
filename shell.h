@@ -24,4 +24,6 @@ void current_env(char *const envn[]);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 
+extern char **environ;
+
 #endif /* SHELL_H */

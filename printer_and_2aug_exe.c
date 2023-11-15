@@ -34,11 +34,11 @@ void note(const char *letter)
  *
  * Return: void
  */
+
 void execom(const char *comm, char *const aug[], char *shel)
 {
 	int status;
 	pid_t pikin_pid;
-	extern char **environ;
 
 	switch (pikin_pid = fork())
 	{
