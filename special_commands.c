@@ -13,36 +13,39 @@ int specmds(char *buf, char *shel, char *av[])
 {
 	(void)shel; /* Unused pointer */
 
-	switch (buf[0])
-	{
-	case 'e':
+	if (buf[0] == 'e')
 	{
 		int i;
 
-		for (i = 0; buf[i] != '\0' && buf[i] != '\t'; i++)
+		for (i = 0; buf[i] != '\0'; i++)
 		{
 			if (buf[i] != "exit"[i])
 				break;
 		}
 
-		if (buf[i] == '\0' || buf[i] == '\t')
+		if (buf[i] == '\0' || buf[i] == ' ' || buf[i] == '\t')
 		{
-			/* Handle the exit command */
-			return (1);
+			/* Handling the exit command*/
+			exit(0);
 		}
 	}
-	break;
-	case 'v':
-		/* checking for the 'env' command */
-		if (buf[1] == 'e' && buf[2] == 'n' &&
-		    buf[3] == 'v' && (buf[4] == '\t' || buf[4] == '\0'))
+
+	if (buf[0] == 'v')
+	{
+		int i;
+
+		for (i = 0; buf[i] != '\0'; i++)
 		{
+			if (buf[i] != "env"[i])
+				break;
+		}
+
+		if (buf[i] == '\0' || buf[i] == ' ' || buf[i] == '\t')
+		{
+			/* Handling the env command */
 			current_env(av);
 			return (1);
 		}
-		break;
-	default:
-		break;
 	}
 
 	return (0);
