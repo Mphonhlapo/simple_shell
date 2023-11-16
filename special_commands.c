@@ -13,19 +13,20 @@ int specmds(char *buf, char *shel, char *av[])
 {
 	(void)shel; /* Unused pointer */
 
-	if (buf[0] == 'e' && buf[1] == 'x' && buf[2] == 'i' && buf[3] == 't'
-	    && (buf[4] == '\0' || buf[4] == ' ' || buf[4] == '\t'))
+	switch (buf[0])
 	{
-		/* Handle the exit command within your shell code */
-		exit(0);
-	}
+	case 'e':
+		if (strncmp(buf, "exit", 4) == 0)
+			return (1);
 
-	if (buf[0] == 'v' && buf[1] == 'e' && buf[2] == 'n' && buf[3] == 'v'
-	    && (buf[4] == '\0' || buf[4] == ' ' || buf[4] == '\t'))
-	{
-		/* Handle the env command within your shell code */
-		current_env(av);
-		return (1);
+		if (strncmp(buf, "env", 3) == 0)
+		{
+			current_env(av); /* Print the current environment */
+			return (1);
+		}
+		break;
+	default:
+		break;
 	}
 
 	return (0);
