@@ -16,12 +16,28 @@ int specmds(char *buf, char *shel, char *av[])
 	switch (buf[0])
 	{
 	case 'e':
-		if (strncmp(buf, "exit", 4) == 0)
-			return (1);
+	{
+		int i;
 
-		if (strncmp(buf, "env", 3) == 0)
+		for (i = 0; buf[i] != '\0' && buf[i] != '\t'; i++)
 		{
-			current_env(av); /* Print the current environment */
+			if (buf[i] != "exit"[i])
+				break;
+		}
+
+		if (buf[i] == '\0' || buf[i] == '\t')
+		{
+			/* Handle the exit command */
+			return (1);
+		}
+	}
+	break;
+	case 'v':
+		/* checking for the 'env' command */
+		if (buf[1] == 'e' && buf[2] == 'n' &&
+		    buf[3] == 'v' && (buf[4] == '\t' || buf[4] == '\0'))
+		{
+			current_env(av);
 			return (1);
 		}
 		break;
