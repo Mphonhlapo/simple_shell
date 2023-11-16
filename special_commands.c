@@ -16,15 +16,24 @@ int specmds(char *buf, char *shel, char *av[])
 	switch (buf[0])
 	{
 	case 'e':
-		if (strncmp(buf, "exit", 4) == 0)
-			return (1);
-
-		if (strncmp(buf, "env", 3) == 0)
+		/* Check for 'exit' */
+		if (buf[1] == 'x' && buf[2] == 'i' && buf[3] == 't' &&
+		    (buf[4] == '\0' || buf[4] == ' ' || buf[4] == '\t'))
 		{
-			current_env(av); /* Print the current environment */
 			return (1);
 		}
 		break;
+
+	case 'v':
+		/* Check for 'env' */
+		if (buf[1] == 'n' && buf[2] == 'v' &&
+		    (buf[3] == '\0' || buf[3] == ' ' || buf[3] == '\t'))
+		{
+			current_env(av);
+			return (1);
+		}
+		break;
+
 	default:
 		break;
 	}
